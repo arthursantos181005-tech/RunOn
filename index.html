@@ -1,174 +1,114 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RunOn | Corrida que move você</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RunOn | Corrida que move você</title>
 
-<style>
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0b132b;
-  color: #f8f8f8;
-}
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b132b;
+      color: #f8f8f8;
+    }
 
-/* HEADER */
-header {
-  background: linear-gradient(135deg,#ff6700,#081f4f);
-  padding: 40px 20px;
-  text-align: center;
-}
-header h1 {
-  margin: 0;
-  font-size: 48px;
-  color: #fff;
-}
-header p {
-  margin-top: 10px;
-  font-size: 18px;
-}
+    header {
+      background: linear-gradient(135deg, #ff6700, #081f4f);
+      padding: 40px 20px;
+      text-align: center;
+    }
 
-/* NAV */
-nav {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-  background: #081f4f;
-  padding: 15px;
-}
-nav a {
-  color: #ff6700;
-  text-decoration: none;
-  font-weight: bold;
-}
+    header h1 {
+      margin: 0;
+      font-size: 48px;
+    }
 
-/* SECTIONS */
-section {
-  padding: 40px 20px;
-  max-width: 1000px;
-  margin: auto;
-}
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      background: #081f4f;
+      padding: 15px;
+    }
 
-/* PLANOS */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
-  gap: 20px;
-}
-.card {
-  background: #081f4f;
-  border-radius: 12px;
-  padding: 25px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-.card h3 {
-  color: #ff6700;
-}
-.card ul {
-  padding-left: 20px;
-}
+    nav a {
+      color: #ff6700;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-.plano-btn {
-  margin-top: 15px;
-  width: 100%;
-  padding: 12px;
-  background: #ff6700;
-  border: none;
-  border-radius: 8px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    section {
+      padding: 40px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
 
-/* CADASTRO */
-.cadastro-bg {
-  background-image: url("Fundo_site.jpeg");
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  padding: 80px 20px;
-}
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
 
-.cadastro-box {
-  background: #ffffff;
-  color: #081f4f;
-  max-width: 420px;
-  margin: auto;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-}
+    .card {
+      background: #081f4f;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
 
-.cadastro-box h2,
-.cadastro-box p {
-  text-align: center;
-}
+    .card h3 {
+      color: #ff6700;
+    }
 
-.cadastro-box input,
-.cadastro-box select {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  font-size: 15px;
-}
+    input, select, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
 
-.cadastro-box button {
-  margin-top: 15px;
-  width: 100%;
-  padding: 12px;
-  background: #f0b429;
-  border: none;
-  border-radius: 8px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+    input, select {
+      background: #0b132b;
+      color: #fff;
+      border: 1px solid #ff6700;
+    }
 
-/* FOOTER */
-footer {
-  background: #081f4f;
-  text-align: center;
-  padding: 20px;
-  font-size: 14px;
-}
+    button {
+      background: #ff6700;
+      color: #081f4f;
+      font-weight: bold;
+      cursor: pointer;
+    }
 
-/* WHATSAPP */
-.whatsapp-float {
-  position: fixed;
-  width: 60px;
-  height: 60px;
-  bottom: 20px;
-  right: 20px;
-  background-color: #ff6700;
-  color: #081f4f;
-  border-radius: 50%;
-  text-align: center;
-  font-size: 32px;
-  line-height: 60px;
-  text-decoration: none;
-}
-</style>
+    footer {
+      background: #081f4f;
+      text-align: center;
+      padding: 20px;
+      font-size: 14px;
+      color: #94a3b8;
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
   <h1>RunOn</h1>
-  <p>Corrida que move você – escolha seu plano e evolua!</p>
+  <p>Corrida que move você – escolha seu plano e evolua</p>
 </header>
 
 <nav>
   <a href="#planos">Planos</a>
   <a href="#cadastro">Cadastro</a>
-  <a href="#dashboard">Área do Aluno</a>
 </nav>
 
 <section id="planos">
   <h2>Escolha seu Plano</h2>
-  <div class="cards">
 
+  <div class="cards">
     <div class="card">
       <h3>Run Guide</h3>
       <p><strong>R$ 39,90</strong> (pagamento único)</p>
@@ -177,9 +117,7 @@ footer {
         <li>Plano de treino personalizado</li>
         <li>Vídeo aulas exclusivas</li>
       </ul>
-      <button class="plano-btn" onclick="selecionarPlano('Run Guide')">
-        Selecionar Run Guide
-      </button>
+      <button onclick="selecionarPlano('Run Guide')">Selecionar</button>
     </div>
 
     <div class="card">
@@ -188,96 +126,85 @@ footer {
       <ul>
         <li>Acompanhamento contínuo</li>
         <li>Evolução mensal</li>
-        <li>Chat direto comigo</li>
+        <li>Contato direto</li>
       </ul>
-      <button class="plano-btn" onclick="selecionarPlano('XRun')">
-        Selecionar XRun
-      </button>
+      <button onclick="selecionarPlano('XRun')">Selecionar</button>
     </div>
-
   </div>
 </section>
 
-<section id="cadastro" class="cadastro-bg">
-  <div class="cadastro-box">
-    <h2>Cadastro do Cliente</h2>
-    <p id="plano-escolhido">Selecione um plano acima.</p>
+<section id="cadastro">
+  <h2>Cadastro</h2>
+  <p id="planoEscolhido">Selecione um plano acima.</p>
 
-    <form id="formCadastro">
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="email" name="email" placeholder="E-mail" required>
-      <input type="tel" name="telefone" placeholder="Telefone / WhatsApp" required>
-      <input type="number" name="idade" placeholder="Idade">
-      <input type="number" name="peso" placeholder="Peso (kg)">
-      <input type="number" name="altura" placeholder="Altura (cm)">
-      <input type="text" name="objetivo" placeholder="Objetivo">
+  <form id="formCadastro">
+    <input id="nome" placeholder="Nome" required>
+    <input id="email" type="email" placeholder="Email" required>
+    <input id="peso" placeholder="Peso (kg)">
+    <input id="altura" placeholder="Altura (cm)">
+    <input id="distancia" placeholder="Distância alvo">
+    <select id="experiencia">
+      <option value="">Experiência</option>
+      <option>Iniciante</option>
+      <option>Intermediário</option>
+      <option>Avançado</option>
+    </select>
 
-      <select name="pratica_esportes">
-        <option value="">Pratica esportes?</option>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
-
-      <button type="submit">Enviar Cadastro</button>
-    </form>
-  </div>
-</section>
-
-<section id="dashboard">
-  <h2>Área do Aluno</h2>
-  <div class="cards">
-    <div class="card"><h3>Meu Perfil</h3></div>
-    <div class="card"><h3>Meu Treino</h3></div>
-    <div class="card"><h3>Vídeo Aulas</h3></div>
-  </div>
+    <button type="submit">Enviar Cadastro</button>
+  </form>
 </section>
 
 <footer>
-  <p>© 2026 RunOn – Todos os direitos reservados</p>
+  © 2026 RunOn – Todos os direitos reservados
 </footer>
 
-<a href="https://wa.me/5511951929520" class="whatsapp-float" target="_blank">💬</a>
-
 <script>
-let planoSelecionado = '';
+  let planoSelecionado = "";
 
-function selecionarPlano(plano) {
-  planoSelecionado = plano;
-  document.getElementById('plano-escolhido').innerText =
-    'Plano escolhido: ' + plano;
-  document.getElementById('cadastro').scrollIntoView({ behavior: 'smooth' });
-}
-
-/* 🔴 COLE A URL NOVA DO SEU APP SCRIPT */
-const urlPlanilha =
-"https://script.google.com/macros/s/SUA_URL_AQUI/exec";
-
-document.getElementById('formCadastro').addEventListener('submit', function(e) {
-  e.preventDefault();
-
-  if (!planoSelecionado) {
-    alert('Selecione um plano antes de enviar.');
-    return;
+  function selecionarPlano(plano) {
+    planoSelecionado = plano;
+    document.getElementById("planoEscolhido").innerText =
+      "Plano escolhido: " + plano;
+    document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
   }
 
-  const dados = new FormData(this);
-  dados.append('plano', planoSelecionado);
+  const scriptURL =
+    "https://script.google.com/macros/s/AKfycbyaFJxGbLuqfp5RZbQzAcNF_YvWVAFyqW4FdcrKrVy4DQl8lJZuc3-C8JDWItQfA5F8/exec";
 
-  fetch(urlPlanilha, { method: 'POST', body: dados })
-    .then(res => res.text())
-    .then(resp => {
-      if (resp.includes("OK")) {
-        alert('Cadastro enviado com sucesso!');
-        this.reset();
-        planoSelecionado = '';
-        document.getElementById('plano-escolhido').innerText =
-          'Selecione um plano acima.';
-      } else {
-        alert('Erro no servidor: ' + resp);
-      }
+  document.getElementById("formCadastro").addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    if (!planoSelecionado) {
+      alert("Selecione um plano antes de enviar.");
+      return;
+    }
+
+    const dados = {
+      plano: planoSelecionado,
+      nome: nome.value,
+      email: email.value,
+      peso: peso.value,
+      altura: altura.value,
+      distancia: distancia.value,
+      experiencia: experiencia.value
+    };
+
+    fetch(scriptURL, {
+      method: "POST",
+      body: JSON.stringify(dados),
+      mode: "no-cors"
     })
-    .catch(() => alert('Erro de conexão.'));
-});
+    .then(() => {
+      alert("Cadastro enviado com sucesso!");
+      this.reset();
+      planoSelecionado = "";
+      document.getElementById("planoEscolhido").innerText =
+        "Selecione um plano acima.";
+    })
+    .catch(() => {
+      alert("Erro de conexão.");
+    });
+  });
 </script>
 
 </body>
