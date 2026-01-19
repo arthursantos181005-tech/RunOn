@@ -78,18 +78,28 @@
     text-align: left;
   }
 
-  .card button {
+  button {
+    width: 100%;
+    padding: 12px;
     margin-top: 15px;
+    border-radius: 8px;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    background: #ff6700;
+    color: #081f4f;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #ffa040;
   }
 
   /* ===== FORMULÁRIO ===== */
 
   .form-wrapper {
-    background: linear-gradient(
-      rgba(11,19,43,0.85),
-      rgba(11,19,43,0.85)
-    );
-    padding: 50px 20px;
+    background: rgba(11,19,43,0.85);
+    padding: 60px 20px;
   }
 
   .form-container {
@@ -114,34 +124,18 @@
     color: #555;
   }
 
-  input, select, button {
+  input, select {
     width: 100%;
     padding: 12px;
     margin-top: 12px;
     border-radius: 8px;
     font-size: 15px;
-  }
-
-  input, select {
     border: 1px solid #ccc;
   }
 
   input:focus, select:focus {
     outline: none;
     border-color: #ff6700;
-  }
-
-  button {
-    background: #ff6700;
-    color: #081f4f;
-    border: none;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 18px;
-  }
-
-  button:hover {
-    background: #ffa040;
   }
 
   footer {
@@ -194,7 +188,7 @@
 
 <section id="cadastro" class="form-wrapper">
   <div class="form-container">
-    <h3>Área do Aluno</h3>
+    <h3>Cadastro do Cliente</h3>
     <p id="plano-escolhido">Selecione um plano para continuar</p>
 
     <form id="formCadastro">
@@ -211,7 +205,7 @@
         <option value="Não">Não</option>
       </select>
 
-      <button type="submit">Entrar</button>
+      <button type="submit">Enviar no WhatsApp</button>
     </form>
   </div>
 </section>
@@ -230,9 +224,6 @@ function selecionarPlano(plano) {
   document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
 }
 
-const scriptURL =
-  "https://script.google.com/macros/s/AKfycbyaFJxGbLuqfp5RZbQzAcNF_YvWVAFyqW4FdcrKrVy4DQl8lJZuc3-C8JDWItQfA5F8/exec";
-
 document.getElementById("formCadastro").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -242,22 +233,28 @@ document.getElementById("formCadastro").addEventListener("submit", function (e) 
   }
 
   const dados = new FormData(this);
-  dados.append("plano", planoSelecionado);
 
-  fetch(scriptURL, {
-    method: "POST",
-    body: dados
-  })
-  .then(() => {
-    alert("Cadastro enviado com sucesso!");
-    this.reset();
-    planoSelecionado = "";
-    document.getElementById("plano-escolhido").innerText =
-      "Selecione um plano para continuar";
-  })
-  .catch(() => {
-    alert("Erro ao enviar cadastro.");
-  });
+  const mensagem =
+    `Novo cadastro RunOn:%0A%0A` +
+    `Nome: ${dados.get("nome")}%0A` +
+    `Email: ${dados.get("email")}%0A` +
+    `Telefone: ${dados.get("telefone")}%0A` +
+    `Idade: ${dados.get("idade")}%0A` +
+    `Peso: ${dados.get("peso")} kg%0A` +
+    `Altura: ${dados.get("altura")} cm%0A` +
+    `Objetivo: ${dados.get("objetivo")}%0A` +
+    `Pratica esportes: ${dados.get("pratica_esportes")}%0A` +
+    `Plano escolhido: ${planoSelecionado}`;
+
+  window.open(
+    "https://wa.me/5511951929520?text=" + mensagem,
+    "_blank"
+  );
+
+  this.reset();
+  planoSelecionado = "";
+  document.getElementById("plano-escolhido").innerText =
+    "Selecione um plano para continuar";
 });
 </script>
 
