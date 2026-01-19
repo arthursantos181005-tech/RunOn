@@ -1,103 +1,108 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RunOn | Corrida que move você</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RunOn | Corrida que move você</title>
 
-  <style>
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b132b;
-      color: #f8f8f8;
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0b132b;
+    color: #f8f8f8;
+  }
 
-    header {
-      background: linear-gradient(135deg, #ff6700, #081f4f);
-      padding: 40px 20px;
-      text-align: center;
-    }
+  header {
+    background: linear-gradient(135deg, #ff6700, #081f4f);
+    padding: 40px 20px;
+    text-align: center;
+  }
 
-    header h1 {
-      margin: 0;
-      font-size: 48px;
-    }
+  header h1 {
+    margin: 0;
+    font-size: 48px;
+    color: #fff;
+  }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      background: #081f4f;
-      padding: 15px;
-    }
+  header p {
+    margin-top: 10px;
+    font-size: 18px;
+  }
 
-    nav a {
-      color: #ff6700;
-      text-decoration: none;
-      font-weight: bold;
-    }
+  nav {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    background: #081f4f;
+    padding: 15px;
+  }
 
-    section {
-      padding: 40px 20px;
-      max-width: 1000px;
-      margin: auto;
-    }
+  nav a {
+    color: #ff6700;
+    text-decoration: none;
+    font-weight: bold;
+  }
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-    }
+  section {
+    padding: 40px 20px;
+    max-width: 1000px;
+    margin: auto;
+  }
 
-    .card {
-      background: #081f4f;
-      border-radius: 12px;
-      padding: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-    }
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
 
-    .card h3 {
-      color: #ff6700;
-    }
+  .card {
+    background: #081f4f;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+  }
 
-    input, select, button {
-      width: 100%;
-      padding: 12px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-      font-size: 16px;
-    }
+  .card h3 {
+    color: #ff6700;
+  }
 
-    input, select {
-      background: #0b132b;
-      color: #fff;
-      border: 1px solid #ff6700;
-    }
+  input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border-radius: 8px;
+    border: none;
+    font-size: 16px;
+  }
 
-    button {
-      background: #ff6700;
-      color: #081f4f;
-      font-weight: bold;
-      cursor: pointer;
-    }
+  input, select {
+    background: #0b132b;
+    color: #fff;
+    border: 1px solid #ff6700;
+  }
 
-    footer {
-      background: #081f4f;
-      text-align: center;
-      padding: 20px;
-      font-size: 14px;
-      color: #94a3b8;
-    }
-  </style>
+  button {
+    background: #ff6700;
+    color: #081f4f;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  footer {
+    background: #081f4f;
+    text-align: center;
+    padding: 20px;
+    font-size: 14px;
+  }
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>RunOn</h1>
-  <p>Corrida que move você – escolha seu plano e evolua</p>
+  <p>Corrida que move você – escolha seu plano e evolua!</p>
 </header>
 
 <nav>
@@ -107,47 +112,47 @@
 
 <section id="planos">
   <h2>Escolha seu Plano</h2>
-
   <div class="cards">
+
     <div class="card">
-      <h3>Run Guide</h3>
+      <h3>Run Guide 🐦</h3>
       <p><strong>R$ 39,90</strong> (pagamento único)</p>
       <ul>
-        <li>30 dias de atendimento digital</li>
+        <li>30 dias de acompanhamento</li>
         <li>Plano de treino personalizado</li>
-        <li>Vídeo aulas exclusivas</li>
       </ul>
-      <button onclick="selecionarPlano('Run Guide')">Selecionar</button>
+      <button onclick="selecionarPlano('Run Guide')">Selecionar Run Guide</button>
     </div>
 
     <div class="card">
-      <h3>XRun</h3>
+      <h3>XRun 🚀</h3>
       <p><strong>R$ 19,90</strong> + R$ 15,00/mês</p>
       <ul>
         <li>Acompanhamento contínuo</li>
-        <li>Evolução mensal</li>
-        <li>Contato direto</li>
+        <li>Chat direto</li>
       </ul>
-      <button onclick="selecionarPlano('XRun')">Selecionar</button>
+      <button onclick="selecionarPlano('XRun')">Selecionar XRun</button>
     </div>
+
   </div>
 </section>
 
 <section id="cadastro">
-  <h2>Cadastro</h2>
-  <p id="planoEscolhido">Selecione um plano acima.</p>
+  <h2>Cadastro do Cliente</h2>
+  <p id="plano-escolhido">Selecione um plano acima.</p>
 
   <form id="formCadastro">
-    <input id="nome" placeholder="Nome" required>
-    <input id="email" type="email" placeholder="Email" required>
-    <input id="peso" placeholder="Peso (kg)">
-    <input id="altura" placeholder="Altura (cm)">
-    <input id="distancia" placeholder="Distância alvo">
-    <select id="experiencia">
-      <option value="">Experiência</option>
-      <option>Iniciante</option>
-      <option>Intermediário</option>
-      <option>Avançado</option>
+    <input type="text" name="nome" placeholder="Nome completo" required>
+    <input type="email" name="email" placeholder="E-mail" required>
+    <input type="tel" name="telefone" placeholder="Telefone / WhatsApp">
+    <input type="number" name="idade" placeholder="Idade">
+    <input type="number" name="peso" placeholder="Peso (kg)">
+    <input type="number" name="altura" placeholder="Altura (cm)">
+    <input type="text" name="objetivo" placeholder="Objetivo">
+    <select name="pratica_esportes">
+      <option value="">Pratica esportes?</option>
+      <option value="Sim">Sim</option>
+      <option value="Não">Não</option>
     </select>
 
     <button type="submit">Enviar Cadastro</button>
@@ -159,52 +164,44 @@
 </footer>
 
 <script>
-  let planoSelecionado = "";
+let planoSelecionado = "";
 
-  function selecionarPlano(plano) {
-    planoSelecionado = plano;
-    document.getElementById("planoEscolhido").innerText =
-      "Plano escolhido: " + plano;
-    document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
+function selecionarPlano(plano) {
+  planoSelecionado = plano;
+  document.getElementById("plano-escolhido").innerText =
+    "Plano escolhido: " + plano;
+  document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
+}
+
+const scriptURL =
+  "https://script.google.com/macros/s/AKfycbyaFJxGbLuqfp5RZbQzAcNF_YvWVAFyqW4FdcrKrVy4DQl8lJZuc3-C8JDWItQfA5F8/exec";
+
+document.getElementById("formCadastro").addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  if (!planoSelecionado) {
+    alert("Selecione um plano antes de enviar.");
+    return;
   }
 
-  const scriptURL =
-    "https://script.google.com/macros/s/AKfycbyaFJxGbLuqfp5RZbQzAcNF_YvWVAFyqW4FdcrKrVy4DQl8lJZuc3-C8JDWItQfA5F8/exec";
+  const dados = new FormData(this);
+  dados.append("plano", planoSelecionado);
 
-  document.getElementById("formCadastro").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    if (!planoSelecionado) {
-      alert("Selecione um plano antes de enviar.");
-      return;
-    }
-
-    const dados = {
-      plano: planoSelecionado,
-      nome: nome.value,
-      email: email.value,
-      peso: peso.value,
-      altura: altura.value,
-      distancia: distancia.value,
-      experiencia: experiencia.value
-    };
-
-    fetch(scriptURL, {
-      method: "POST",
-      body: JSON.stringify(dados),
-      mode: "no-cors"
-    })
-    .then(() => {
-      alert("Cadastro enviado com sucesso!");
-      this.reset();
-      planoSelecionado = "";
-      document.getElementById("planoEscolhido").innerText =
-        "Selecione um plano acima.";
-    })
-    .catch(() => {
-      alert("Erro de conexão.");
-    });
+  fetch(scriptURL, {
+    method: "POST",
+    body: dados
+  })
+  .then(() => {
+    alert("Cadastro enviado com sucesso!");
+    this.reset();
+    planoSelecionado = "";
+    document.getElementById("plano-escolhido").innerText =
+      "Selecione um plano acima.";
+  })
+  .catch(() => {
+    alert("Erro ao enviar cadastro.");
   });
+});
 </script>
 
 </body>
