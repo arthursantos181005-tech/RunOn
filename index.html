@@ -95,8 +95,6 @@
     background: #ffa040;
   }
 
-  /* ===== FORMULÁRIO ===== */
-
   .form-wrapper {
     background: rgba(11,19,43,0.85);
     padding: 60px 20px;
@@ -191,21 +189,28 @@
     <h3>Cadastro do Cliente</h3>
     <p id="plano-escolhido">Selecione um plano para continuar</p>
 
-    <form id="formCadastro">
-      <input type="text" name="nome" placeholder="Nome completo" required>
-      <input type="email" name="email" placeholder="E-mail" required>
-      <input type="tel" name="telefone" placeholder="Telefone / WhatsApp">
-      <input type="number" name="idade" placeholder="Idade">
-      <input type="number" name="peso" placeholder="Peso (kg)">
-      <input type="number" name="altura" placeholder="Altura (cm)">
-      <input type="text" name="objetivo" placeholder="Objetivo">
-      <select name="pratica_esportes">
+    <form action="https://formsubmit.co/runonbrcomercial@gmail.com" method="POST">
+      
+      <!-- Configurações FormSubmit -->
+      <input type="hidden" name="_subject" value="Novo Cadastro - RunOn">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="plano" id="planoInput">
+
+      <input type="text" name="Nome" placeholder="Nome completo" required>
+      <input type="email" name="Email" placeholder="E-mail" required>
+      <input type="tel" name="Telefone" placeholder="Telefone / WhatsApp">
+      <input type="number" name="Idade" placeholder="Idade">
+      <input type="number" name="Peso" placeholder="Peso (kg)">
+      <input type="number" name="Altura" placeholder="Altura (cm)">
+      <input type="text" name="Objetivo" placeholder="Objetivo">
+      
+      <select name="Pratica esportes">
         <option value="">Pratica esportes?</option>
         <option value="Sim">Sim</option>
         <option value="Não">Não</option>
       </select>
 
-      <button type="submit">Enviar no WhatsApp</button>
+      <button type="submit">Enviar Cadastro</button>
     </form>
   </div>
 </section>
@@ -221,41 +226,11 @@ function selecionarPlano(plano) {
   planoSelecionado = plano;
   document.getElementById("plano-escolhido").innerText =
     "Plano escolhido: " + plano;
+
+  document.getElementById("planoInput").value = plano;
+
   document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
 }
-
-document.getElementById("formCadastro").addEventListener("submit", function (e) {
-  e.preventDefault();
-
-  if (!planoSelecionado) {
-    alert("Selecione um plano antes de continuar.");
-    return;
-  }
-
-  const dados = new FormData(this);
-
-  const mensagem =
-    `Novo cadastro RunOn:%0A%0A` +
-    `Nome: ${dados.get("nome")}%0A` +
-    `Email: ${dados.get("email")}%0A` +
-    `Telefone: ${dados.get("telefone")}%0A` +
-    `Idade: ${dados.get("idade")}%0A` +
-    `Peso: ${dados.get("peso")} kg%0A` +
-    `Altura: ${dados.get("altura")} cm%0A` +
-    `Objetivo: ${dados.get("objetivo")}%0A` +
-    `Pratica esportes: ${dados.get("pratica_esportes")}%0A` +
-    `Plano escolhido: ${planoSelecionado}`;
-
-  window.open(
-    "https://wa.me/5511951929520?text=" + mensagem,
-    "_blank"
-  );
-
-  this.reset();
-  planoSelecionado = "";
-  document.getElementById("plano-escolhido").innerText =
-    "Selecione um plano para continuar";
-});
 </script>
 
 </body>
