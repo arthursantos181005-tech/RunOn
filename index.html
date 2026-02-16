@@ -6,115 +6,413 @@
 <title>RunOn | Corrida com propósito</title>
 
 <style>
+  /* ===== RESET & BASE ===== */
+  * { box-sizing: border-box; }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #0b132b;
     color: #f8f8f8;
+    overflow-x: hidden;
   }
 
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes fadeInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes scaleIn {
+    from { opacity: 0; transform: scale(0.85); }
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.04); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% center; }
+    100% { background-position: 200% center; }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+  }
+
+  @keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+
+  .animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  }
+
+  .animate-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== HEADER / HERO ===== */
   header {
-    background: linear-gradient(135deg, #ff6700, #081f4f);
-    padding: 50px 20px;
+    position: relative;
+    background:
+      linear-gradient(135deg, rgba(255,103,0,0.85), rgba(8,31,79,0.92)),
+      url('fundo_site.jpeg.jpeg') center/cover no-repeat;
+    padding: 60px 20px 50px;
     text-align: center;
+    min-height: 420px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(255,103,0,0.15) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(0,120,255,0.1) 0%, transparent 50%);
+    animation: gradientShift 8s ease infinite;
+    background-size: 200% 200%;
+    pointer-events: none;
+  }
+
+  .hero-logo {
+    max-width: 340px;
+    width: 85%;
+    height: auto;
+    border-radius: 12px;
+    animation: scaleIn 0.8s ease-out forwards;
+    filter: drop-shadow(0 8px 30px rgba(255,103,0,0.3));
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
   }
 
   header h1 {
     margin: 0;
     font-size: 48px;
     color: #fff;
+    animation: fadeInDown 0.8s ease-out 0.3s forwards;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
   }
 
-  header p {
-    margin-top: 12px;
-    font-size: 18px;
+  .hero-tagline {
+    margin-top: 14px;
+    font-size: 19px;
+    color: rgba(255,255,255,0.9);
+    animation: fadeInUp 0.8s ease-out 0.5s forwards;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    max-width: 500px;
+    line-height: 1.5;
   }
 
+  .hero-cta {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 14px 38px;
+    background: #ff6700;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    animation: fadeInUp 0.8s ease-out 0.7s forwards;
+    opacity: 0;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(255,103,0,0.4);
+  }
+
+  .hero-cta:hover {
+    background: #ff8533;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(255,103,0,0.5);
+  }
+
+  /* ===== NAV ===== */
   nav {
     display: flex;
     justify-content: center;
     gap: 30px;
     background: #081f4f;
     padding: 15px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    transition: background 0.3s ease;
   }
 
   nav a {
     color: #ff6700;
     text-decoration: none;
     font-weight: bold;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    padding: 6px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    position: relative;
   }
 
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: #ff6700;
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+  }
+
+  nav a:hover {
+    color: #ffa040;
+    background: rgba(255,103,0,0.1);
+  }
+
+  nav a:hover::after {
+    width: 80%;
+  }
+
+  /* ===== SECTIONS ===== */
   section {
-    padding: 60px 20px;
+    padding: 70px 20px;
     max-width: 1100px;
     margin: auto;
   }
 
   h2 {
     text-align: center;
-    margin-bottom: 40px;
+    margin-bottom: 12px;
+    font-size: 32px;
+    position: relative;
   }
 
+  .section-subtitle {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 16px;
+    margin-bottom: 45px;
+  }
+
+  /* ===== FEATURES ===== */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 20px;
+  }
+
+  .feature-item {
+    text-align: center;
+    padding: 30px 20px;
+    border-radius: 14px;
+    background: rgba(8,31,79,0.5);
+    border: 1px solid rgba(255,103,0,0.1);
+    transition: all 0.4s ease;
+  }
+
+  .feature-item:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255,103,0,0.3);
+    background: rgba(8,31,79,0.8);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .feature-icon {
+    font-size: 38px;
+    margin-bottom: 14px;
+    display: block;
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .feature-item:nth-child(2) .feature-icon { animation-delay: 0.5s; }
+  .feature-item:nth-child(3) .feature-icon { animation-delay: 1s; }
+
+  .feature-item h4 {
+    color: #ff6700;
+    margin: 0 0 8px;
+    font-size: 17px;
+  }
+
+  .feature-item p {
+    margin: 0;
+    font-size: 14px;
+    color: #b0b8c8;
+    line-height: 1.5;
+  }
+
+  /* ===== CARDS / PLANS ===== */
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
   }
 
   .card {
-    background: #081f4f;
-    border-radius: 14px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    background: linear-gradient(145deg, #081f4f, #0a1a3a);
+    border-radius: 18px;
+    padding: 35px 30px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
     text-align: center;
+    border: 1px solid rgba(255,103,0,0.1);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6700, #ffa040, #ff6700);
+    background-size: 200% 100%;
+    animation: shimmer 3s linear infinite;
+  }
+
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    border-color: rgba(255,103,0,0.3);
   }
 
   .card h3 {
     color: #ff6700;
+    font-size: 24px;
+    margin-top: 10px;
+  }
+
+  .card .price {
+    font-size: 28px;
+    font-weight: bold;
+    color: #fff;
+    margin: 15px 0 5px;
+  }
+
+  .card .price-detail {
+    font-size: 14px;
+    color: #94a3b8;
+    margin-bottom: 20px;
   }
 
   .card ul {
-    padding-left: 18px;
+    padding-left: 0;
     text-align: left;
+    list-style: none;
+    margin: 20px 0;
+  }
+
+  .card ul li {
+    padding: 8px 0;
+    padding-left: 26px;
+    position: relative;
+    font-size: 15px;
+    color: #d0d6e0;
+  }
+
+  .card ul li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: #ff6700;
+    font-weight: bold;
   }
 
   button {
     width: 100%;
-    padding: 12px;
+    padding: 14px;
     margin-top: 15px;
-    border-radius: 8px;
+    border-radius: 50px;
     border: none;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
-    background: #ff6700;
-    color: #081f4f;
+    background: linear-gradient(135deg, #ff6700, #ff8533);
+    color: #fff;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255,103,0,0.3);
+    letter-spacing: 0.3px;
   }
 
   button:hover {
-    background: #ffa040;
+    background: linear-gradient(135deg, #ff8533, #ffa040);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255,103,0,0.45);
   }
 
-  /* ===== FORMULÁRIO ===== */
+  button:active {
+    transform: translateY(0);
+  }
 
+  /* ===== FORM ===== */
   .form-wrapper {
-    background: rgba(11,19,43,0.85);
-    padding: 60px 20px;
+    background:
+      linear-gradient(180deg, rgba(11,19,43,0.9), rgba(8,31,79,0.6)),
+      url('fundo_site.jpeg.jpeg') center/cover no-repeat fixed;
+    padding: 70px 20px;
   }
 
   .form-container {
     background: #ffffff;
-    max-width: 420px;
+    max-width: 440px;
     margin: auto;
-    border-radius: 18px;
-    padding: 35px 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-radius: 20px;
+    padding: 40px 32px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     color: #081f4f;
+    animation: scaleIn 0.6s ease-out;
   }
 
   .form-container h3 {
     text-align: center;
     margin-bottom: 10px;
+    font-size: 22px;
   }
 
   .form-container p {
@@ -126,24 +424,103 @@
 
   input, select {
     width: 100%;
-    padding: 12px;
+    padding: 13px 16px;
     margin-top: 12px;
-    border-radius: 8px;
+    border-radius: 10px;
     font-size: 15px;
-    border: 1px solid #ccc;
+    border: 2px solid #e0e0e0;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
   }
 
   input:focus, select:focus {
     outline: none;
     border-color: #ff6700;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(255,103,0,0.1);
   }
 
+  .form-container button {
+    margin-top: 22px;
+    background: linear-gradient(135deg, #ff6700, #ff8533);
+    color: #fff;
+    font-size: 16px;
+    padding: 15px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .form-container button::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .form-container button:hover::after {
+    left: 100%;
+  }
+
+  /* ===== DIVIDER ===== */
+  .section-divider {
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6700, #ffa040);
+    margin: 0 auto 40px;
+    border-radius: 2px;
+  }
+
+  /* ===== FOOTER ===== */
   footer {
-    background: #081f4f;
+    background: linear-gradient(135deg, #081f4f, #060f2a);
     text-align: center;
-    padding: 25px;
+    padding: 30px;
     font-size: 14px;
     color: #94a3b8;
+    border-top: 1px solid rgba(255,103,0,0.15);
+  }
+
+  .footer-logo {
+    max-width: 120px;
+    margin-bottom: 12px;
+    opacity: 0.8;
+    border-radius: 6px;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 600px) {
+    header {
+      padding: 40px 16px 36px;
+      min-height: 360px;
+    }
+
+    .hero-logo {
+      max-width: 260px;
+    }
+
+    header h1 {
+      font-size: 32px;
+    }
+
+    .hero-tagline {
+      font-size: 16px;
+    }
+
+    h2 {
+      font-size: 26px;
+    }
+
+    .card {
+      padding: 28px 22px;
+    }
+
+    .form-container {
+      padding: 30px 22px;
+    }
   }
 </style>
 </head>
@@ -151,43 +528,75 @@
 <body>
 
 <header>
-  <h1>RunOn</h1>
-  <p>Comece guiado. Evolua acompanhado. Corra com propósito.</p>
+  <img src="Logo.jpeg" alt="RunOn Logo" class="hero-logo">
+  <p class="hero-tagline">Comece guiado. Evolua acompanhado. Corra com propósito.</p>
+  <a href="#planos" class="hero-cta">Conheça os Planos</a>
 </header>
 
 <nav>
+  <a href="#sobre">Sobre</a>
   <a href="#planos">Planos</a>
   <a href="#cadastro">Cadastro</a>
 </nav>
 
+<section id="sobre">
+  <h2 class="animate-on-scroll">Por que correr com a RunOn?</h2>
+  <div class="section-divider animate-on-scroll"></div>
+  <p class="section-subtitle animate-on-scroll">Treino inteligente, acompanhamento real e resultados que transformam.</p>
+
+  <div class="features">
+    <div class="feature-item animate-on-scroll">
+      <span class="feature-icon">&#127939;</span>
+      <h4>Treino Personalizado</h4>
+      <p>Plano adaptado ao seu nível, objetivos e rotina. Nada genérico.</p>
+    </div>
+    <div class="feature-item animate-on-scroll">
+      <span class="feature-icon">&#128172;</span>
+      <h4>Suporte Direto</h4>
+      <p>Acompanhamento por WhatsApp com orientação contínua e tirada de dúvidas.</p>
+    </div>
+    <div class="feature-item animate-on-scroll">
+      <span class="feature-icon">&#127942;</span>
+      <h4>Resultados Reais</h4>
+      <p>Evolução progressiva com metas claras e acompanhamento de performance.</p>
+    </div>
+  </div>
+</section>
+
 <section id="planos">
-  <h2>Escolha seu Plano</h2>
+  <h2 class="animate-on-scroll">Escolha seu Plano</h2>
+  <div class="section-divider animate-on-scroll"></div>
+  <p class="section-subtitle animate-on-scroll">Comece hoje e transforme sua corrida.</p>
 
   <div class="cards">
-    <div class="card">
+    <div class="card animate-on-scroll">
       <h3>Run Guide</h3>
-      <p><strong>R$ 39,90</strong> (pagamento único)</p>
+      <div class="price">R$ 39,90</div>
+      <div class="price-detail">pagamento único</div>
       <ul>
         <li>Plano de treino personalizado</li>
         <li>30 dias de acompanhamento</li>
+        <li>Suporte via WhatsApp</li>
       </ul>
-      <button onclick="selecionarPlano('Run Guide')">Selecionar</button>
+      <button onclick="selecionarPlano('Run Guide')">Selecionar Plano</button>
     </div>
 
-    <div class="card">
+    <div class="card animate-on-scroll">
       <h3>XRun</h3>
-      <p><strong>R$ 19,90</strong> + R$ 15,00/mês</p>
+      <div class="price">R$ 19,90</div>
+      <div class="price-detail">+ R$ 15,00/mês</div>
       <ul>
         <li>Acompanhamento contínuo</li>
-        <li>Contato direto</li>
+        <li>Contato direto com o treinador</li>
+        <li>Ajustes periódicos no treino</li>
       </ul>
-      <button onclick="selecionarPlano('XRun')">Selecionar</button>
+      <button onclick="selecionarPlano('XRun')">Selecionar Plano</button>
     </div>
   </div>
 </section>
 
 <section id="cadastro" class="form-wrapper">
-  <div class="form-container">
+  <div class="form-container animate-on-scroll">
     <h3>Cadastro do Cliente</h3>
     <p id="plano-escolhido">Selecione um plano para continuar</p>
 
@@ -211,7 +620,8 @@
 </section>
 
 <footer>
-  © 2026 RunOn – Todos os direitos reservados
+  <img src="Logo.jpeg" alt="RunOn" class="footer-logo"><br>
+  &copy; 2026 RunOn &ndash; Todos os direitos reservados
 </footer>
 
 <script>
@@ -255,6 +665,19 @@ document.getElementById("formCadastro").addEventListener("submit", function (e) 
   planoSelecionado = "";
   document.getElementById("plano-escolhido").innerText =
     "Selecione um plano para continuar";
+});
+
+// Scroll animation observer
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => {
+  observer.observe(el);
 });
 </script>
 
