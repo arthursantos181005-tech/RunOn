@@ -4,233 +4,1282 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RunOn | Corrida com propósito</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
 
 <style>
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
   body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     background: #0b132b;
-    color: #f8f8f8;
+    color: #f0f0f0;
+    scroll-behavior: smooth;
   }
 
-  header {
-    background: linear-gradient(135deg, #ff6700, #081f4f);
-    padding: 50px 20px;
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(60px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-fade-up {
+    animation: fadeInUp 0.8s ease forwards;
+  }
+
+  .animate-fade-in {
+    animation: fadeIn 1s ease forwards;
+  }
+
+  .animate-slide-left {
+    animation: slideInLeft 0.8s ease forwards;
+  }
+
+  .animate-slide-right {
+    animation: slideInRight 0.8s ease forwards;
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
+    overflow: hidden;
   }
 
-  header h1 {
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url('assets/fundo_site.jpeg') center/cover no-repeat;
+    filter: brightness(0.35);
+    z-index: 0;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(11,19,43,0.3) 0%, rgba(11,19,43,0.95) 100%);
+    z-index: 1;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 40px 20px;
+    animation: fadeInUp 1s ease;
+  }
+
+  .hero-logo {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #ff6700;
+    margin-bottom: 24px;
+    box-shadow: 0 0 40px rgba(255, 103, 0, 0.4);
+    animation: float 3s ease-in-out infinite;
+  }
+
+  .hero h1 {
+    font-size: 64px;
+    font-weight: 900;
     margin: 0;
-    font-size: 48px;
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -1px;
+  }
+
+  .hero .tagline {
+    font-size: 22px;
+    margin-top: 16px;
+    color: #c8d6e5;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+    margin-top: 36px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: linear-gradient(135deg, #ff6700, #ff8c38);
     color: #fff;
+    font-weight: 700;
+    font-size: 16px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255, 103, 0, 0.4);
   }
 
-  header p {
-    margin-top: 12px;
-    font-size: 18px;
+  .btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 103, 0, 0.6);
   }
 
+  .btn-secondary {
+    display: inline-block;
+    padding: 16px 36px;
+    background: transparent;
+    color: #ff6700;
+    font-weight: 700;
+    font-size: 16px;
+    border: 2px solid #ff6700;
+    border-radius: 50px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 103, 0, 0.1);
+    transform: translateY(-3px);
+  }
+
+  /* ===== NAV ===== */
   nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
     display: flex;
     justify-content: center;
+    align-items: center;
     gap: 30px;
-    background: #081f4f;
-    padding: 15px;
+    background: rgba(8, 31, 79, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(255, 103, 0, 0.2);
   }
 
   nav a {
-    color: #ff6700;
+    color: #c8d6e5;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 600;
+    font-size: 15px;
+    transition: color 0.3s;
+    position: relative;
   }
 
+  nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #ff6700;
+    transition: width 0.3s;
+  }
+
+  nav a:hover {
+    color: #ff6700;
+  }
+
+  nav a:hover::after {
+    width: 100%;
+  }
+
+  /* ===== SECTIONS ===== */
   section {
-    padding: 60px 20px;
+    padding: 80px 20px;
     max-width: 1100px;
     margin: auto;
   }
 
-  h2 {
+  .section-title {
     text-align: center;
-    margin-bottom: 40px;
+    font-size: 36px;
+    font-weight: 900;
+    margin-bottom: 16px;
   }
 
+  .section-title span {
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .section-subtitle {
+    text-align: center;
+    font-size: 18px;
+    color: #8892b0;
+    margin-bottom: 50px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ===== ABOUT ===== */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+  }
+
+  .about-image {
+    position: relative;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+  }
+
+  .about-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .about-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 2px solid rgba(255, 103, 0, 0.3);
+    border-radius: 20px;
+  }
+
+  .about-text h3 {
+    font-size: 28px;
+    color: #ff6700;
+    margin-bottom: 16px;
+  }
+
+  .about-text p {
+    line-height: 1.8;
+    color: #c8d6e5;
+    font-size: 16px;
+  }
+
+  /* ===== BENEFITS ===== */
+  .benefits-section {
+    background: linear-gradient(180deg, #0b132b 0%, #0d1b3e 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+
+  .benefits-section .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .benefits-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+  }
+
+  .benefit-card {
+    text-align: center;
+    padding: 40px 24px;
+    background: linear-gradient(180deg, rgba(8,31,79,0.8), rgba(8,31,79,0.4));
+    border-radius: 20px;
+    border: 1px solid rgba(255,103,0,0.15);
+    transition: all 0.4s ease;
+  }
+
+  .benefit-card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,103,0,0.5);
+    box-shadow: 0 15px 40px rgba(255,103,0,0.15);
+  }
+
+  .benefit-icon {
+    font-size: 48px;
+    margin-bottom: 20px;
+    display: block;
+  }
+
+  .benefit-card h4 {
+    color: #ff6700;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .benefit-card p {
+    color: #8892b0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ===== STATS ===== */
+  .stats-bar {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    padding: 50px 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 30px 20px;
+  }
+
+  .stat-number {
+    font-size: 48px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    display: block;
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    color: #8892b0;
+    font-size: 16px;
+  }
+
+  /* ===== PLANS ===== */
   .cards {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 30px;
   }
 
   .card {
-    background: #081f4f;
-    border-radius: 14px;
-    padding: 30px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.45);
+    background: linear-gradient(180deg, #0d1b3e, #081f4f);
+    border-radius: 24px;
+    padding: 40px 32px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
     text-align: center;
+    border: 1px solid rgba(255,103,0,0.1);
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #ff6700, #ffa040);
+  }
+
+  .card:hover {
+    transform: translateY(-8px);
+    border-color: rgba(255,103,0,0.4);
+    box-shadow: 0 25px 50px rgba(255,103,0,0.15);
+  }
+
+  .card .plan-badge {
+    display: inline-block;
+    background: rgba(255,103,0,0.15);
+    color: #ff6700;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 16px;
   }
 
   .card h3 {
+    color: #fff;
+    font-size: 28px;
+    margin: 8px 0;
+  }
+
+  .card .price {
+    font-size: 42px;
+    font-weight: 900;
     color: #ff6700;
+    margin: 16px 0 8px;
+  }
+
+  .card .price-detail {
+    font-size: 14px;
+    color: #8892b0;
+    margin-bottom: 24px;
   }
 
   .card ul {
-    padding-left: 18px;
+    padding: 0;
+    list-style: none;
     text-align: left;
+    margin-bottom: 30px;
   }
 
-  button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 15px;
-    border-radius: 8px;
-    border: none;
+  .card ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
     font-size: 15px;
-    font-weight: bold;
-    background: #ff6700;
-    color: #081f4f;
+    color: #c8d6e5;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .card ul li::before {
+    content: '✓';
+    color: #ff6700;
+    font-weight: 700;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .card button {
+    width: 100%;
+    padding: 16px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
+    transition: all 0.3s ease;
   }
 
-  button:hover {
-    background: #ffa040;
+  .card-primary button {
+    background: linear-gradient(135deg, #ff6700, #ff8c38);
+    color: #fff;
+    box-shadow: 0 6px 20px rgba(255,103,0,0.4);
   }
 
+  .card-primary button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,103,0,0.6);
+  }
+
+  .card-secondary button {
+    background: transparent;
+    color: #ff6700;
+    border: 2px solid #ff6700;
+  }
+
+  .card-secondary button:hover {
+    background: rgba(255,103,0,0.1);
+  }
+
+  .card-featured {
+    border-color: rgba(255,103,0,0.4);
+    box-shadow: 0 15px 40px rgba(255,103,0,0.15);
+  }
+
+  /* ===== TESTIMONIALS ===== */
+  .testimonials-section {
+    background: linear-gradient(180deg, #0d1b3e 0%, #0b132b 100%);
+    padding: 80px 20px;
+    max-width: 100%;
+  }
+
+  .testimonials-section .section-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+
+  .testimonial-card {
+    background: rgba(8,31,79,0.5);
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid rgba(255,103,0,0.1);
+    transition: all 0.3s ease;
+  }
+
+  .testimonial-card:hover {
+    border-color: rgba(255,103,0,0.3);
+  }
+
+  .testimonial-stars {
+    color: #ff6700;
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .testimonial-text {
+    font-size: 15px;
+    line-height: 1.7;
+    color: #c8d6e5;
+    font-style: italic;
+    margin-bottom: 20px;
+  }
+
+  .testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .testimonial-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  .testimonial-name {
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .testimonial-role {
+    font-size: 13px;
+    color: #8892b0;
+  }
+
+  /* ===== HOW IT WORKS ===== */
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 30px;
+    counter-reset: step;
+  }
+
+  .step-card {
+    text-align: center;
+    padding: 40px 24px;
+    position: relative;
+  }
+
+  .step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff6700, #ff8c38);
+    font-weight: 900;
+    font-size: 24px;
+    color: #fff;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 25px rgba(255,103,0,0.3);
+  }
+
+  .step-card h4 {
+    color: #fff;
+    font-size: 20px;
+    margin-bottom: 12px;
+  }
+
+  .step-card p {
+    color: #8892b0;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ===== FAQ ===== */
+  .faq-list {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    padding: 24px 0;
+  }
+
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 17px;
+    color: #f0f0f0;
+    transition: color 0.3s;
+    user-select: none;
+  }
+
+  .faq-question:hover {
+    color: #ff6700;
+  }
+
+  .faq-toggle {
+    color: #ff6700;
+    font-size: 24px;
+    transition: transform 0.3s;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+
+  .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.4s ease;
+    color: #8892b0;
+    line-height: 1.7;
+    font-size: 15px;
+  }
+
+  .faq-item.active .faq-answer {
+    max-height: 200px;
+    padding-top: 16px;
+  }
+
+  .faq-item.active .faq-toggle {
+    transform: rotate(45deg);
+  }
+
+  /* ===== CTA ===== */
+  .cta-section {
+    text-align: center;
+    padding: 80px 20px;
+    background: linear-gradient(180deg, #0b132b 0%, #0d1b3e 50%, #0b132b 100%);
+    max-width: 100%;
+  }
+
+  .cta-section h2 {
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 16px;
+  }
+
+  .cta-section h2 span {
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .cta-section p {
+    color: #8892b0;
+    font-size: 18px;
+    margin-bottom: 36px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ===== FORM ===== */
   .form-wrapper {
-    background: rgba(11,19,43,0.85);
-    padding: 60px 20px;
+    background: linear-gradient(180deg, #0d1b3e 0%, #0b132b 100%);
+    padding: 80px 20px;
   }
 
   .form-container {
     background: #ffffff;
-    max-width: 420px;
+    max-width: 480px;
     margin: auto;
-    border-radius: 18px;
-    padding: 35px 30px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    border-radius: 24px;
+    padding: 44px 36px;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.5);
     color: #081f4f;
   }
 
   .form-container h3 {
     text-align: center;
-    margin-bottom: 10px;
+    margin-bottom: 8px;
+    font-size: 24px;
   }
 
-  .form-container p {
+  .form-container > p {
     text-align: center;
     font-size: 14px;
-    margin-bottom: 25px;
+    margin-bottom: 28px;
     color: #555;
+  }
+
+  .form-group {
+    margin-bottom: 16px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 6px;
   }
 
   input, select {
     width: 100%;
-    padding: 12px;
-    margin-top: 12px;
-    border-radius: 8px;
+    padding: 14px 16px;
+    border-radius: 12px;
     font-size: 15px;
-    border: 1px solid #ccc;
+    border: 2px solid #e2e8f0;
+    font-family: 'Inter', Arial, sans-serif;
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-sizing: border-box;
   }
 
   input:focus, select:focus {
     outline: none;
     border-color: #ff6700;
+    box-shadow: 0 0 0 4px rgba(255,103,0,0.1);
   }
 
+  .form-container button[type="submit"] {
+    width: 100%;
+    padding: 16px;
+    margin-top: 8px;
+    border-radius: 50px;
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #ff6700, #ff8c38);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 20px rgba(255,103,0,0.3);
+    font-family: 'Inter', Arial, sans-serif;
+  }
+
+  .form-container button[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,103,0,0.5);
+  }
+
+  /* ===== FOOTER ===== */
   footer {
-    background: #081f4f;
+    background: #060d1f;
     text-align: center;
-    padding: 25px;
+    padding: 40px 20px;
+    border-top: 1px solid rgba(255,103,0,0.15);
+  }
+
+  .footer-logo {
+    font-size: 28px;
+    font-weight: 900;
+    background: linear-gradient(135deg, #ff6700, #ffa040);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 12px;
+  }
+
+  footer p {
+    color: #556b8a;
     font-size: 14px;
-    color: #94a3b8;
+    margin: 4px 0;
+  }
+
+  /* ===== SCROLL REVEAL ===== */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 768px) {
+    .hero h1 {
+      font-size: 42px;
+    }
+
+    .hero .tagline {
+      font-size: 18px;
+    }
+
+    .hero-logo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .about-grid {
+      grid-template-columns: 1fr;
+      gap: 30px;
+    }
+
+    .about-image {
+      order: -1;
+    }
+
+    .section-title {
+      font-size: 28px;
+    }
+
+    nav {
+      gap: 16px;
+      flex-wrap: wrap;
+      padding: 12px 16px;
+    }
+
+    nav a {
+      font-size: 13px;
+    }
+
+    .hero-buttons {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .stat-number {
+      font-size: 36px;
+    }
+
+    .cards {
+      grid-template-columns: 1fr;
+    }
+
+    .form-container {
+      padding: 30px 24px;
+    }
+
+    .cta-section h2 {
+      font-size: 30px;
+    }
   }
 </style>
 </head>
 
 <body>
 
-<header>
-  <h1>RunOn</h1>
-  <p>Comece guiado. Evolua acompanhado. Corra com propósito.</p>
-</header>
+<!-- ===== HERO ===== -->
+<div class="hero">
+  <div class="hero-content">
+    <img src="assets/Logo.jpeg" alt="RunOn Logo" class="hero-logo">
+    <h1>RunOn</h1>
+    <p class="tagline">Comece guiado. Evolua acompanhado. Corra com propósito.</p>
+    <div class="hero-buttons">
+      <a href="#planos" class="btn-primary">Ver Planos</a>
+      <a href="#sobre" class="btn-secondary">Saiba Mais</a>
+    </div>
+  </div>
+</div>
 
+<!-- ===== NAV ===== -->
 <nav>
+  <a href="#sobre">Sobre</a>
+  <a href="#beneficios">Benefícios</a>
   <a href="#planos">Planos</a>
+  <a href="#como-funciona">Como Funciona</a>
+  <a href="#depoimentos">Depoimentos</a>
+  <a href="#faq">FAQ</a>
   <a href="#cadastro">Cadastro</a>
 </nav>
 
-<section id="planos">
-  <h2>Escolha seu Plano</h2>
-
-  <div class="cards">
-    <div class="card">
-      <h3>Run Guide</h3>
-      <p><strong>R$ 39,90</strong> (pagamento único)</p>
-      <ul>
-        <li>Plano de treino personalizado</li>
-        <li>30 dias de acompanhamento</li>
-      </ul>
-      <button onclick="selecionarPlano('Run Guide')">Selecionar</button>
+<!-- ===== ABOUT ===== -->
+<section id="sobre">
+  <div class="about-grid reveal">
+    <div class="about-text">
+      <h3>Quem somos</h3>
+      <p>A <strong>RunOn</strong> nasceu da paixão pela corrida e do desejo de tornar o esporte acessível a todos. Acreditamos que cada pessoa tem um potencial único e merece um acompanhamento que respeite seu ritmo, seus objetivos e seu corpo.</p>
+      <p style="margin-top: 16px;">Nossa equipe de profissionais experientes cria planos personalizados que vão além de simples planilhas de treino. Oferecemos suporte real, orientação contínua e motivação para que você alcance resultados consistentes e duradouros.</p>
     </div>
-
-    <div class="card">
-      <h3>XRun</h3>
-      <p><strong>R$ 19,90</strong> + R$ 15,00/mês</p>
-      <ul>
-        <li>Acompanhamento contínuo</li>
-        <li>Contato direto</li>
-      </ul>
-      <button onclick="selecionarPlano('XRun')">Selecionar</button>
+    <div class="about-image">
+      <img src="assets/fundo_site.jpeg" alt="Corrida com propósito">
     </div>
   </div>
 </section>
 
+<!-- ===== STATS ===== -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <span class="stat-number" data-target="150">0</span>
+    <span class="stat-label">Alunos Ativos</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="500">0</span>
+    <span class="stat-label">Treinos Entregues</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="98">0</span>
+    <span class="stat-label">% Satisfação</span>
+  </div>
+  <div class="stat-item">
+    <span class="stat-number" data-target="30">0</span>
+    <span class="stat-label">Cidades Atendidas</span>
+  </div>
+</div>
+
+<!-- ===== BENEFITS ===== -->
+<div class="benefits-section" id="beneficios">
+  <div class="section-inner">
+    <h2 class="section-title reveal"><span>Por que escolher</span> a RunOn?</h2>
+    <p class="section-subtitle reveal">Oferecemos muito mais do que um plano de treino. Somos seu parceiro na jornada.</p>
+
+    <div class="benefits-grid">
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">🎯</span>
+        <h4>Treino Personalizado</h4>
+        <p>Cada plano é criado especificamente para seus objetivos, nível e rotina.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">💬</span>
+        <h4>Suporte Direto</h4>
+        <p>Contato direto com seu treinador para tirar dúvidas e ajustar treinos.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">📊</span>
+        <h4>Acompanhamento Real</h4>
+        <p>Monitoramento da sua evolução com feedbacks regulares e ajustes.</p>
+      </div>
+      <div class="benefit-card reveal">
+        <span class="benefit-icon">🏃</span>
+        <h4>Para Todos os Níveis</h4>
+        <p>Iniciantes, intermediários ou avançados. Todos são bem-vindos.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== PLANS ===== -->
+<section id="planos">
+  <h2 class="section-title reveal">Escolha <span>seu Plano</span></h2>
+  <p class="section-subtitle reveal">Comece hoje mesmo a transformar sua relação com a corrida.</p>
+
+  <div class="cards">
+    <div class="card card-secondary reveal">
+      <span class="plan-badge">Iniciante</span>
+      <h3>Run Guide</h3>
+      <div class="price">R$ 39,90</div>
+      <div class="price-detail">Pagamento único</div>
+      <ul>
+        <li>Plano de treino 100% personalizado</li>
+        <li>30 dias de acompanhamento</li>
+        <li>Orientações de preparo físico</li>
+        <li>Suporte via WhatsApp</li>
+      </ul>
+      <button onclick="selecionarPlano('Run Guide')">Quero Começar</button>
+    </div>
+
+    <div class="card card-primary card-featured reveal">
+      <span class="plan-badge">Mais Popular</span>
+      <h3>XRun</h3>
+      <div class="price">R$ 19,90</div>
+      <div class="price-detail">Adesão + R$ 15,00/mês</div>
+      <ul>
+        <li>Acompanhamento contínuo ilimitado</li>
+        <li>Contato direto com o treinador</li>
+        <li>Ajustes semanais no treino</li>
+        <li>Relatórios de evolução mensal</li>
+        <li>Comunidade exclusiva de corredores</li>
+      </ul>
+      <button onclick="selecionarPlano('XRun')">Quero Evoluir</button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== HOW IT WORKS ===== -->
+<section id="como-funciona">
+  <h2 class="section-title reveal">Como <span>Funciona</span></h2>
+  <p class="section-subtitle reveal">Em apenas 4 passos você já estará correndo com propósito.</p>
+
+  <div class="steps-grid">
+    <div class="step-card reveal">
+      <div class="step-number">1</div>
+      <h4>Escolha seu Plano</h4>
+      <p>Selecione o plano que mais combina com seus objetivos e momento.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">2</div>
+      <h4>Preencha o Cadastro</h4>
+      <p>Compartilhe suas informações para criarmos seu treino personalizado.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">3</div>
+      <h4>Receba seu Treino</h4>
+      <p>Em até 48h você recebe seu plano completo pronto para começar.</p>
+    </div>
+    <div class="step-card reveal">
+      <div class="step-number">4</div>
+      <h4>Corra e Evolua</h4>
+      <p>Siga o plano, conte com nosso suporte e veja seus resultados crescerem.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== TESTIMONIALS ===== -->
+<div class="testimonials-section" id="depoimentos">
+  <div class="section-inner">
+    <h2 class="section-title reveal">O que dizem <span>nossos alunos</span></h2>
+    <p class="section-subtitle reveal">Histórias reais de quem transformou sua rotina com a RunOn.</p>
+
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Nunca imaginei que conseguiria correr 5km sem parar. A RunOn me deu confiança e um plano que realmente funcionou pra mim!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">C</div>
+          <div>
+            <div class="testimonial-name">Camila R.</div>
+            <div class="testimonial-role">Aluna Run Guide</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"O acompanhamento do XRun é sensacional. Sempre que tenho dúvida, recebo resposta rápida. Me sinto acompanhado de verdade."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">R</div>
+          <div>
+            <div class="testimonial-name">Rafael S.</div>
+            <div class="testimonial-role">Aluno XRun</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <p class="testimonial-text">"Voltei a correr depois de anos parada. O plano respeitou meu ritmo e hoje já completei minha primeira prova de 10km!"</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">A</div>
+          <div>
+            <div class="testimonial-name">Ana P.</div>
+            <div class="testimonial-role">Aluna XRun</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== FAQ ===== -->
+<section id="faq">
+  <h2 class="section-title reveal">Perguntas <span>Frequentes</span></h2>
+  <p class="section-subtitle reveal">Tire suas dúvidas sobre nossos planos e serviços.</p>
+
+  <div class="faq-list">
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Preciso ter experiência com corrida?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        Não! Nossos planos são adaptados para todos os níveis, desde iniciantes completos até corredores experientes. Começamos do seu ponto atual.
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Em quanto tempo recebo meu plano de treino?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        Após o preenchimento do cadastro e confirmação do pagamento, você recebe seu plano personalizado em até 48 horas.
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Posso cancelar o plano XRun a qualquer momento?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        Sim! O plano XRun não tem fidelidade. Você pode cancelar quando quiser, sem burocracia.
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        O acompanhamento é feito por qual canal?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        Todo o suporte e acompanhamento é feito via WhatsApp, de forma prática e acessível para você.
+      </div>
+    </div>
+
+    <div class="faq-item reveal">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        Qual a diferença entre o Run Guide e o XRun?
+        <span class="faq-toggle">+</span>
+      </div>
+      <div class="faq-answer">
+        O Run Guide é ideal para quem quer um plano pontual com 30 dias de acompanhamento. Já o XRun oferece acompanhamento contínuo, ajustes semanais e acesso à comunidade exclusiva de corredores.
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<div class="cta-section">
+  <h2 class="reveal">Pronto para <span>começar</span>?</h2>
+  <p class="reveal">Dê o primeiro passo. A RunOn está pronta para correr ao seu lado.</p>
+  <a href="#cadastro" class="btn-primary reveal">Cadastre-se Agora</a>
+</div>
+
+<!-- ===== FORM ===== -->
 <section id="cadastro" class="form-wrapper">
-  <div class="form-container">
+  <div class="form-container reveal">
     <h3>Cadastro do Cliente</h3>
-    <p id="plano-escolhido">Selecione um plano para continuar</p>
+    <p id="plano-escolhido">Selecione um plano acima ou preencha o cadastro</p>
 
     <form action="https://formsubmit.co/runonbrcomercial@gmail.com" method="POST">
-      
-      <!-- Configurações FormSubmit -->
       <input type="hidden" name="_subject" value="Novo Cadastro - RunOn">
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="plano" id="planoInput">
 
-      <input type="text" name="Nome" placeholder="Nome completo" required>
-      <input type="email" name="Email" placeholder="E-mail" required>
-      <input type="tel" name="Telefone" placeholder="Telefone / WhatsApp">
-      <input type="number" name="Idade" placeholder="Idade">
-      <input type="number" name="Peso" placeholder="Peso (kg)">
-      <input type="number" name="Altura" placeholder="Altura (cm)">
-      <input type="text" name="Objetivo" placeholder="Objetivo">
-      
-      <select name="Pratica esportes">
-        <option value="">Pratica esportes?</option>
-        <option value="Sim">Sim</option>
-        <option value="Não">Não</option>
-      </select>
+      <div class="form-group">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="Nome" placeholder="Seu nome completo" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="Email" placeholder="seu@email.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="telefone">Telefone / WhatsApp</label>
+        <input type="tel" id="telefone" name="Telefone" placeholder="(00) 00000-0000">
+      </div>
+
+      <div class="form-group">
+        <label for="idade">Idade</label>
+        <input type="number" id="idade" name="Idade" placeholder="Sua idade">
+      </div>
+
+      <div class="form-group">
+        <label for="peso">Peso (kg)</label>
+        <input type="number" id="peso" name="Peso" placeholder="Ex: 70">
+      </div>
+
+      <div class="form-group">
+        <label for="altura">Altura (cm)</label>
+        <input type="number" id="altura" name="Altura" placeholder="Ex: 175">
+      </div>
+
+      <div class="form-group">
+        <label for="objetivo">Objetivo</label>
+        <input type="text" id="objetivo" name="Objetivo" placeholder="Ex: Correr minha primeira prova de 10km">
+      </div>
+
+      <div class="form-group">
+        <label for="esportes">Pratica esportes?</label>
+        <select id="esportes" name="Pratica esportes">
+          <option value="">Selecione</option>
+          <option value="Sim">Sim</option>
+          <option value="Não">Não</option>
+        </select>
+      </div>
 
       <button type="submit">Enviar Cadastro</button>
     </form>
   </div>
 </section>
 
+<!-- ===== FOOTER ===== -->
 <footer>
-  © 2026 RunOn – Todos os direitos reservados
+  <div class="footer-logo">RunOn</div>
+  <p>Corrida com propósito</p>
+  <p style="margin-top: 12px;">&copy; 2026 RunOn &ndash; Todos os direitos reservados</p>
 </footer>
 
+<!-- ===== SCRIPTS ===== -->
 <script>
-let planoSelecionado = "";
+  // Plan selection
+  let planoSelecionado = "";
 
-function selecionarPlano(plano) {
-  planoSelecionado = plano;
-  document.getElementById("plano-escolhido").innerText =
-    "Plano escolhido: " + plano;
+  function selecionarPlano(plano) {
+    planoSelecionado = plano;
+    document.getElementById("plano-escolhido").innerText = "Plano escolhido: " + plano;
+    document.getElementById("planoInput").value = plano;
+    document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
+  }
 
-  document.getElementById("planoInput").value = plano;
+  // FAQ toggle
+  function toggleFaq(element) {
+    const item = element.parentElement;
+    item.classList.toggle("active");
+  }
 
-  document.getElementById("cadastro").scrollIntoView({ behavior: "smooth" });
-}
+  // Scroll reveal animation
+  function revealOnScroll() {
+    const reveals = document.querySelectorAll('.reveal');
+    reveals.forEach(el => {
+      const windowHeight = window.innerHeight;
+      const elementTop = el.getBoundingClientRect().top;
+      const revealPoint = 120;
+      if (elementTop < windowHeight - revealPoint) {
+        el.classList.add('visible');
+      }
+    });
+  }
+
+  // Counter animation for stats
+  function animateCounters() {
+    const counters = document.querySelectorAll('.stat-number[data-target]');
+    counters.forEach(counter => {
+      const rect = counter.getBoundingClientRect();
+      if (rect.top < window.innerHeight && !counter.dataset.animated) {
+        counter.dataset.animated = "true";
+        const target = parseInt(counter.dataset.target);
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            current = target;
+            clearInterval(timer);
+          }
+          counter.textContent = Math.floor(current) + (counter.parentElement.querySelector('.stat-label').textContent.includes('%') ? '%' : '+');
+        }, 16);
+      }
+    });
+  }
+
+  window.addEventListener('scroll', () => {
+    revealOnScroll();
+    animateCounters();
+  });
+
+  // Initial check
+  revealOnScroll();
+  animateCounters();
 </script>
 
 </body>
